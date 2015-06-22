@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication','Upload',
+	function($scope, $http, $location, Users, Authentication, Upload) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -66,6 +66,37 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+		};
+
+		//
+		$scope.upload = function (files) {
+		    var name = $scope.user.username;
+		    if (files && files.length) {
+		    	if(angular.isArray(files)){
+		    		files = files[0];
+		    	}
+
+		    	if (files.type !== 'image/png' && files.type !== 'image/jpeg') {
+		            alert('Only PNG and JPEG are accepted.');
+		            return;
+		        }
+		       
+		        Upload.upload({
+		            url: '/users/upload',
+		            headers: {'Content-Type': 'multipart/form-data'},
+		            method: 'POST',
+		            fields: { 'username': name},
+		            file: files
+		        }).success(function (data, status, headers, config) {
+		            console.log('complete');
+		            //var hi = data;
+		            //console.log(hi);
+		            Authentication.user = data;
+		            $scope.user = data;
+		        }).error(function(err) {
+                	console.log('Error uploading file: ' + err.message || err);
+            	});
+		    }
 		};
 	}
 ]);

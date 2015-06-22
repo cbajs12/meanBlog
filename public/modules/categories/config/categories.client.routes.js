@@ -12,6 +12,10 @@ angular.module('categories').config(['$stateProvider',
 		state('categories', {
 			url: '/categories',
 			templateUrl: 'modules/categories/views/categories.client.view.html'
+		}).
+		state('viewCategory', {
+			url: '/categories/:categoryId',
+			templateUrl: 'modules/categories/views/view-category.client.view.html'
 		});
 	}
 ]);
