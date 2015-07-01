@@ -1,10 +1,16 @@
 <section data-ng-controller="BoardsController">
-    <div class="page-header">
-        <h1>New Article</h1>
+    <div class="page-header col-md-12 text-center">
+        <h1>New Board</h1>
     </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate autocomplete="off">
             <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="name">Board Name</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Board name" required>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label" for="title">Title</label>
                     <div class="controls">
@@ -14,12 +20,15 @@
                 <div class="form-group">
                     <label class="control-label" for="content">Content</label>
                     <div class="controls">
-                        <textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+                        <textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content" required></textarea>
                     </div>
                 </div>
-                
-                <input type="hidden" name="purpose" data-ng-model="purpose" id="purpose" value="board"/>
-                
+                <div class="form-group">
+                    <label class="control-label" for="tag">Tags(Only 5 and Use ',' that is token delimiter)</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="tag" id="tag" class="form-control" placeholder="Write 5 Tags">
+                    </div>
+                </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
@@ -30,3 +39,8 @@
         </form>
     </div>
 </section>
+<style type="text/css">
+textarea {
+    resize: none;
+}
+</style>

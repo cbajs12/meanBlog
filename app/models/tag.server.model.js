@@ -11,16 +11,16 @@ function validateLength(v){
 }
 
 /**
- * Board Schema
+ * Tag Schema
  */
-var BoardSchema = new Schema({
-	name: {
+var TagSchema = new Schema({
+	// Tag model fields   
+	tagname:{
 		type:String,
-		default: '',
-		required: 'Please fill title',
 		trim: true,
 		unique:true,
-		validate: [validateLength, 'Board name must be 15 chars in length or less']
+		default: '',
+		validate: [validateLength, 'Tag must be 15 chars in length or less']
 	},
 	created: {
 		type: Date,
@@ -30,7 +30,6 @@ var BoardSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Article'
 	}]
-
 });
 
-mongoose.model('Board', BoardSchema);
+mongoose.model('Tag', TagSchema);

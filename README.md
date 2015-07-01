@@ -1,1 +1,2 @@
-Hello Make blog using MEAN.js
+Hello!
+This blog is based on MEAN.js Basic site

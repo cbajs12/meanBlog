@@ -6,18 +6,19 @@ module.exports = function(app) {
 
 	// Boards Routes
 	app.route('/boards')
-		.post(users.requiresLogin, users.hasAuthorization, boards.add);
+		.get(boards.list);
+		
+	app.route('/boards/:boardName')
+		.post(boards.create)
+		.get(boards.listArticles);
+		//.delete(users.requiresLogin, users.hasAuthorization, boards.destroy);
+		//.get(users.requiresLogin, users.hasAuthorization, boards.add);
 
-	app.route('/boards/:boardPurpose')
-		.get(boards.list)
-		.post(users.requiresLogin, boards.create)
-		.delete(users.requiresLogin, users.hasAuthorization, boards.destroy);
-
-	app.route('/boards/:boardPurpose/:boardId')
-		.get(boards.read)
-		.put(users.requiresLogin, boards.hasAuthorization, boards.update)
-		.delete(users.requiresLogin, boards.hasAuthorization, boards.delete);
-
+	app.route('/boards/:boardName/:articleId')
+		//.get(boards.readArticles)
+		.put(users.requiresLogin, boards.hasAuthorization, boards.update);
+		//.delete(users.requiresLogin, boards.hasAuthorization, boards.delete);
+	
 	// Finish by binding the Board middleware
 	app.param('boardId', boards.boardByID);
 };

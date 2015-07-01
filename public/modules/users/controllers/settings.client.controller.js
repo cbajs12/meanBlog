@@ -68,7 +68,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			});
 		};
 
-		//
+		// Change profile picture
 		$scope.upload = function (files) {
 		    var name = $scope.user.username;
 		    if (files && files.length) {
@@ -88,9 +88,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		            fields: { 'username': name},
 		            file: files
 		        }).success(function (data, status, headers, config) {
-		            console.log('complete');
-		            //var hi = data;
-		            //console.log(hi);
 		            Authentication.user = data;
 		            $scope.user = data;
 		        }).error(function(err) {
