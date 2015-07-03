@@ -3,20 +3,27 @@
         <h1>Boards</h1>
     </div>
     <div class="list-group col-md-2 text-center">
-        <a data-ng-repeat="board in boards" data-ng-click="findArticle(board)" class="list-group-item">
+        <a data-ng-repeat="board in boards" data-ng-click="findArticles(board)" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="board.name"></h4>
         </a>
     </div>
     <div class="alert alert-warning col-md-2 text-center" data-ng-hide="!boards.$resolved || boards.length">
         No boards yet, why don't you <a href="/#!/boards/create">create one</a>?
     </div>
-    <div class="list-group col-md-8">
-        <a data-ng-repeat="article in articles" data-ng-href="#!/boards/{{board.name}}" class="list-group-item">
+    <div class="list-group col-md-10">
+        <div class="navbar-right">
+            <a type="button" class="btn btn-primary"  data-ng-hide="!articles.length" data-ng-href="#!/boards/write/{{boardName}}">Article Write</a>
+            <a type="button" class="btn btn-info"  data-ng-hide="!articles.length" data-ng-href="#!/boards/edit/{{boardName}}">Board Name Change</a>
+            <a type="button" class="btn btn-danger" data-ng-hide="!articles" data-ng-click="remove();">Board Delete</a>      
+        </div>
+
+        <br>
+        <br>
+        <a data-ng-repeat="article in articles" data-ng-href="#!/boards/{{boardName}}/{{article.title}}" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+            <span data-ng-bind="article.created | date:'mediumDate'"></span>
+            &nbsp;Count: {{article.count}}
         </a>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!boards.$resolved || boards.length">
-        No Boards yet, why don't you <a href="/#!/boards/create">create one</a>?
-    </div>
-
+  
 </section>

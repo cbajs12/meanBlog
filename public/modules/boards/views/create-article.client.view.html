@@ -1,3 +1,36 @@
-<section data-ng-controller="BoardsController">
-	This is the Destroy board
+<section data-ng-controller="BoardsController" data-ng-init="findOneBoard()">
+<div class="page-header col-md-12 text-center">
+        <h1>New article of {{board.name}}</h1>
+    </div>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+        <form class="form-horizontal" data-ng-submit="write()" novalidate autocomplete="off">
+            <fieldset>
+                <input type="hidden" id="nameHid" value="{{board.name}}">
+                <div class="form-group">
+                    <label class="control-label" for="title">Title</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="content">Content</label>
+                    <div class="controls">
+                        <textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="tag">Tags(Only 5 and Use ',' that is token delimiter)</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="tag" id="tag" class="form-control" placeholder="Write 5 Tags">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
 </section>

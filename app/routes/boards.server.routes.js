@@ -11,13 +11,25 @@ module.exports = function(app) {
 	app.route('/boards/:boardName')
 		.post(boards.create)
 		.get(boards.listArticles);
-		//.delete(users.requiresLogin, users.hasAuthorization, boards.destroy);
-		//.get(users.requiresLogin, users.hasAuthorization, boards.add);
 
-	app.route('/boards/:boardName/:articleId')
-		//.get(boards.readArticles)
-		.put(users.requiresLogin, boards.hasAuthorization, boards.update);
-		//.delete(users.requiresLogin, boards.hasAuthorization, boards.delete);
+	app.route('/boards/write/:boardName')
+		.get(boards.read)
+		.post(boards.writeArticle);
+
+	app.route('/boards/edit/:boardName')
+		.put(boards.update);
+
+	app.route('/boards/destroy/:boardName')
+		.delete(boards.destroy);
+
+	app.route('/boards/:boardName/:articleTitle')
+		.get(boards.readArticle);
+
+	app.route('/boards/:boardName/:articleTitle/edit')
+		.put(boards.updateArticle);
+
+	app.route('/boards/:boardName/:articleTitle/delete')
+		.delete(boards.deleteArticle);
 	
 	// Finish by binding the Board middleware
 	app.param('boardId', boards.boardByID);

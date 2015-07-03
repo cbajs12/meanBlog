@@ -17,24 +17,24 @@ angular.module('boards').config(['$stateProvider',
 			url: '/boards/destroy/:boardName',
 			templateUrl: 'modules/boards/views/destroy-board.client.view.html'
 		}).
-		state('listArticles', {
-			url: '/boards/:boardName',
-			templateUrl: 'modules/boards/views/list-articles.client.view.html'
+		state('editBoardName', {
+			url: '/boards/edit/:boardName',
+			templateUrl: 'modules/boards/views/edit-board.client.view.html'
 		}).
 		state('createArticle', {
-			url: '/boards/:boardName/create',
-			templateUrl: 'modules/boards/views/create-article.client.view.html'
+			url: '/boards/write/:boardName',
+			templateUrl: 'modules/boards/views/create-article.client.view.html',
 		}).
 		state('viewArticle', {
-			url: '/boards/:boardName/:articleId',
+			url: '/boards/:boardName/:articleTitle',
 			templateUrl: 'modules/boards/views/view-article.client.view.html'
 		}).
 		state('editArticle', {
-			url: '/boards/:boardName/:articleId/edit',
+			url: '/boards/:boardName/:articleTitle/edit',
 			templateUrl: 'modules/boards/views/edit-article.client.view.html'
 		}).
 		state('deleteArticle', {
-			url: '/boards/:boardName/:articleId/delete',
+			url: '/boards/:boardName/:articleTitle/delete',
 			templateUrl: 'modules/boards/views/delete-article.client.view.html'
 		});
 	}

@@ -1,21 +1,41 @@
-<section data-ng-controller="BoardsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="board.name"></h1>
+<section data-ng-controller="BoardsController" data-ng-init="findOneArticle()">
+	<div class="page-header col-md-12 text-center">
+		<h1 data-ng-bind="article.title"></h1>
+		<div class="pull-right">
+        	<p>Count : {{article.count}}</p>
+        </div>
+    </div>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4 ">
+    	<div class="controls text-center">
+            <h3 data-ng-bind="article.content"></h3>
+        </div>
+        <legend></legend>
+		<label for="tagList">Tags: </label>
+		<a data-ng-repeat="tag in tags" data-ng-href="#!/boards" class="list-inline" id="tagList">
+            <li class="list-group-item-heading" data-ng-bind="tag.tagname"></li>
+        </a>
+		<div class="pull-right" > <!--data-ng-show="((authentication.user) && (authentication.user.displayName == article.username))"-->
+			<a class="btn btn-primary" href="/#!/boards">
+				<i class="glyphicon glyphicon-home"></i>
+			</a>
+			<a class="btn btn-primary" href="/#!/boards/{{boardName}}/{{article.title}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-primary" data-ng-click="delete();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+		<br>
+		<small>
+			<em class="text-muted">
+				Posted on
+				<span data-ng-bind="article.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="article.username"></span><br>
+				Final update : 
+				<span data-ng-bind="article.updated | date:'mediumDate'"></span>
+			</em>
+		</small>
+	</div>	
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == board.user._id))">
-		<a class="btn btn-primary" href="/#!/boards/{{board.purpose}}/{{board._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="board.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="board.user.displayName"></span>
-		</em>
-	</small>
 </section>
