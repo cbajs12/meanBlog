@@ -121,6 +121,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$scope.article = response.articles;
 				$scope.tags = response.tags;
 				$scope.boardName = name;
+				$scope.comments = response.comments;
 				//console.log(response.articles);
 				//console.log(response.tags);
 			}).error(function(response) {
@@ -200,6 +201,65 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$http.delete('/boards/'+boardName+'/'+existTitle+'/delete').success(function(response) {
 					console.log(response.message);
 					$location.path('boards');
+				}).error(function(response) {
+					//$scope.error = response.message;
+				});
+			}
+		};
+
+		// Create new Comment
+		$scope.writeComment = function() {
+			if(!this.comment){
+				$scope.comment = '';
+				alert('Write down Comment');
+				return;
+			}
+
+			var data = {
+				writer : $scope.user._id,
+				parent : $scope.article._id,
+				content : this.comment,
+				userpicture : $scope.user.imagePath,
+				username : $scope.user.displayName
+			};
+
+			//console.log(data);
+
+			$http.post('/comment/create',{params:data}).success(function(response) {
+				//console.log(response);
+				$scope.comment = '';
+				$scope.comments = response;
+			}).error(function(response) {
+				//$scope.error = response.message;
+			});
+		};
+
+		// update Comment
+		$scope.updateComment = function(commentId,articleId) {
+			var status = confirm('Are you sure you want to change this comment?');
+			if(status){
+				var content = prompt('Write your comment');
+				if(content !== null){
+					//console.log(comment);
+					$http.put('/comment/update',{params:{comment:commentId,article:articleId,content:content}}).success(function(response) {
+						//console.log(response);
+						$scope.comments = response;
+					}).error(function(response) {
+						//$scope.error = response.message;
+					});
+				}
+			}
+
+		};
+
+		// delete Comment
+		$scope.deleteComment = function(commentId,articleId) {
+			//console.log(commentId);
+			//console.log(articleId);
+			var status = confirm('Are you sure you want to delete this comment?');
+			if(status){
+				$http.delete('/comment/delete',{params:{comment:commentId,article:articleId}}).success(function(response) {
+					$scope.comments = response;
 				}).error(function(response) {
 					//$scope.error = response.message;
 				});

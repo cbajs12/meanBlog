@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-	var users = require('../../app/controllers/users.server.controller');
+	//var users = require('../../app/controllers/users.server.controller');
 	var boards = require('../../app/controllers/boards.server.controller');
 
 	// Boards Routes
@@ -31,6 +31,15 @@ module.exports = function(app) {
 	app.route('/boards/:boardName/:articleTitle/delete')
 		.delete(boards.deleteArticle);
 	
+	app.route('/comment/create')
+		.post(boards.createComment);
+
+	app.route('/comment/delete')
+		.delete(boards.deleteComment);
+
+	app.route('/comment/update')
+		.put(boards.updateComment);
+
 	// Finish by binding the Board middleware
 	app.param('boardId', boards.boardByID);
 };
