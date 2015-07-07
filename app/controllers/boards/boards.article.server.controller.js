@@ -122,7 +122,7 @@ exports.writeArticle = function(req,res){
 							docs.article.push(article._id);
 							docs.save();
 							res.jsonp(docs);
-							console.log('create finished');
+							//console.log('create finished');
 						}
 					}
 				});

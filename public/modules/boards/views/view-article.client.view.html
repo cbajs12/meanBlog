@@ -14,14 +14,14 @@
 		<a data-ng-repeat="tag in tags" data-ng-href="#!/boards" class="list-inline" id="tagList">
             <li class="list-group-item-heading" data-ng-bind="tag.tagname"></li>
         </a>
-		<div class="pull-right" > <!--data-ng-show="((authentication.user) && (authentication.user.displayName == article.username))"-->
+		<div class="pull-right">
 			<a class="btn btn-primary" href="/#!/boards">
 				<i class="glyphicon glyphicon-home"></i>
 			</a>
-			<a class="btn btn-primary" href="/#!/boards/{{boardName}}/{{article.title}}/edit">
+			<a class="btn btn-primary" href="/#!/boards/{{boardName}}/{{article.title}}/edit" data-ng-show="((user) && (user.username == article.username))">
 				<i class="glyphicon glyphicon-edit"></i>
 			</a>
-			<a class="btn btn-primary" data-ng-click="delete();">
+			<a class="btn btn-primary" data-ng-click="delete();" data-ng-show="((user) && (user.username == article.username))">
 				<i class="glyphicon glyphicon-trash"></i>
 			</a>
 		</div>

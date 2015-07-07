@@ -11,13 +11,3 @@ angular.module('boards').factory('Boards', ['$resource',
 		});
 	}
 ]);
-/*.factory('Comments').factory('Comments', ['$resource',
-	function($resource) {
-		return $resource('comments', { 
-		}, {
-			update: {
-				method: 'PUT'
-			}
-		});
-	}
-]);*/

@@ -37,7 +37,8 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$location.path('boards');
 			
 			}).error(function(response) {
-				//$scope.error = response.message;
+				alert(response.message);
+				//$scope.error = ;
 			});
 		};
 
@@ -77,6 +78,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 			
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 			
 		};
@@ -95,6 +97,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
@@ -106,9 +109,11 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 			$http.get('/boards/'+board.name).success(function(response) {
 				//console.log('hi');
 				$scope.articles = response;
+				//console.log(response);
 				$scope.boardName = board.name;
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
@@ -126,6 +131,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				//console.log(response.tags);
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
@@ -144,6 +150,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$location.path('boards');
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
@@ -173,6 +180,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$location.path('boards/'+boardName+'/'+existTitle);
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
@@ -187,6 +195,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 					$scope.articles = '';
 				}).error(function(response) {
 					//$scope.error = response.message;
+					alert(response.message);
 				});
 			}
 		};
@@ -203,12 +212,18 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 					$location.path('boards');
 				}).error(function(response) {
 					//$scope.error = response.message;
+					alert(response.message);
 				});
 			}
 		};
 
 		// Create new Comment
 		$scope.writeComment = function() {
+			if(!$scope.user){
+				$scope.comment = '';
+				alert('You should sign in first');
+				return;
+			}
 			if(!this.comment){
 				$scope.comment = '';
 				alert('Write down Comment');
@@ -231,11 +246,20 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 				$scope.comments = response;
 			}).error(function(response) {
 				//$scope.error = response.message;
+				alert(response.message);
 			});
 		};
 
 		// update Comment
 		$scope.updateComment = function(commentId,articleId) {
+			var currentName = $scope.user.username;
+			var articleName = $scope.article.username;
+
+			if(articleName !== currentName){
+				alert('You can not update this comment');
+				return;
+			}
+
 			var status = confirm('Are you sure you want to change this comment?');
 			if(status){
 				var content = prompt('Write your comment');
@@ -246,6 +270,7 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 						$scope.comments = response;
 					}).error(function(response) {
 						//$scope.error = response.message;
+						alert(response.message);
 					});
 				}
 			}
@@ -254,16 +279,24 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 
 		// delete Comment
 		$scope.deleteComment = function(commentId,articleId) {
-			//console.log(commentId);
-			//console.log(articleId);
+			var currentName = $scope.user.username;
+			var articleName = $scope.article.username;
+
+			if(articleName !== currentName){
+				alert('You can not delete this comment');
+				return;
+			}
+
 			var status = confirm('Are you sure you want to delete this comment?');
 			if(status){
 				$http.delete('/comment/delete',{params:{comment:commentId,article:articleId}}).success(function(response) {
 					$scope.comments = response;
 				}).error(function(response) {
 					//$scope.error = response.message;
+					alert(response.message);
 				});
 			}
 		};
+
 	}
 ]);

@@ -11,7 +11,7 @@
         No boards yet, why don't you <a href="/#!/boards/create">create one</a>?
     </div>
     <div class="list-group col-md-10">
-        <div class="navbar-right">
+        <div class="navbar-right" data-ng-show="((user) && (user.roles == 'admin'))">
             <a type="button" class="btn btn-primary"  data-ng-hide="!articles.length" data-ng-href="#!/boards/write/{{boardName}}">Article Write</a>
             <a type="button" class="btn btn-info"  data-ng-hide="!articles.length" data-ng-href="#!/boards/edit/{{boardName}}">Board Name Change</a>
             <a type="button" class="btn btn-danger" data-ng-hide="!articles" data-ng-click="remove();">Board Delete</a>      
