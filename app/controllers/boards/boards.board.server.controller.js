@@ -36,7 +36,8 @@ exports.create = function(req, res) {
 	var article = new Article({
 		title : req.body.params.title,
 		username : req.body.params.username,
-		content : req.body.params.content
+		content : req.body.params.content,
+		parentname : req.body.params.name
 	});
 
 	var tags = [];
