@@ -70,7 +70,8 @@ exports.writeArticle = function(req,res){
 	var article = new Article({
 		title : req.body.params.title,
 		username : req.body.params.username,
-		content : req.body.params.content
+		content : req.body.params.content,
+		parentname : req.body.params.name
 	});
 
 	var tags = [];
@@ -281,4 +282,30 @@ exports.deleteArticle = function(req,res){
 			message: 'User is not signed in'
 		});
 	}
+};
+
+/**
+ *	List of tags
+ */
+exports.listTags = function(req, res) { 
+	//console.log(req.query.tagname);
+	
+	Tag.findOne({tagname:req.query.tagname},function(err,docs){
+		if(!docs){
+			console.log('no data');
+		}else{
+			//console.log(docs);
+			Article.find({_id:{$in:docs.article}}).sort({created:'desc'}).exec(function(err,data){
+				if(err){
+					console.log(err);
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}else{
+					//console.log(data);
+					res.jsonp(data);
+				}
+			});
+		}
+	});
 };

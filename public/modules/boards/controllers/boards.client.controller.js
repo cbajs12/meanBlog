@@ -298,5 +298,20 @@ angular.module('boards').controller('BoardsController', ['$scope','$http', '$sta
 			}
 		};
 
+		// Find lists of the tag of a board
+		$scope.findTags = function() {
+			var tag = $stateParams.tags;
+			//console.log(tag);
+			$http.get('/tags',{params:{tagname:tag}}).success(function(response) {
+				
+				$scope.allTags = response;
+				
+			}).error(function(response) {
+				//$scope.error = response.message;
+				alert(response.message);
+			});
+			
+		};
+
 	}
 ]);

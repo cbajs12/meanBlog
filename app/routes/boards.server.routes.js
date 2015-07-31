@@ -40,6 +40,9 @@ module.exports = function(app) {
 	app.route('/comment/update')
 		.put(boards.updateComment);
 
+	app.route('/tags')
+		.get(boards.listTags);
+
 	// Finish by binding the Board middleware
 	app.param('boardId', boards.boardByID);
 };

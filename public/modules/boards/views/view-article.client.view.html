@@ -11,7 +11,7 @@
         </div>
         <legend></legend>
 		<label for="tagList">Tags: </label>
-		<a data-ng-repeat="tag in tags" data-ng-href="#!/boards" class="list-inline" id="tagList">
+		<a data-ng-repeat="tag in tags" data-ng-href="#!/boards/{{tag.tagname}}" class="list-inline" id="tagList">
             <li class="list-group-item-heading" data-ng-bind="tag.tagname"></li>
         </a>
 		<div class="pull-right">

@@ -1,7 +1,7 @@
 <section data-ng-controller="HomeController" data-ng-init="findArticles()">
 	<h2 class="text-center">cbajs12's MEAN Blog</h2>
 	<div class="list-group col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-		<a data-ng-repeat="article in newArticles" data-ng-href="#!/boards" class="list-group-item">
+		<a data-ng-repeat="article in newArticles" data-ng-href="#!/boards/{{article.parentname}}/{{article.title}}" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
             <span data-ng-bind="article.created | date:'mediumDate'"></span>
             &nbsp;Count: {{article.count}}

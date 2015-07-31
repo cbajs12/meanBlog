@@ -48,7 +48,11 @@ var ArticleSchema = new Schema({
 	tag:[{
 		type: Schema.Types.ObjectId,
 		ref: 'Tag'
-	}]
+	}],
+	parentname:{
+		type: String,
+		trim: true
+	}
 });
 
 mongoose.model('Article', ArticleSchema);

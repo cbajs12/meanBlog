@@ -36,6 +36,10 @@ angular.module('boards').config(['$stateProvider',
 		state('deleteArticle', {
 			url: '/boards/:boardName/:articleTitle/delete',
 			templateUrl: 'modules/boards/views/delete-article.client.view.html'
+		}).
+		state('tagArticle', {
+			url: '/boards/:tags',
+			templateUrl: 'modules/boards/views/view-tag.client.view.html'
 		});
 	}
 ]);
